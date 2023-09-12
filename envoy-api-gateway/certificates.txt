@@ -1,0 +1,9 @@
+# Create a self-signed certificate for the CoffeeApi and TeaApi projects
+dotnet dev-certs https -ep $env:USERPROFILE\.aspnet\https\CoffeeApi.pfx -p password
+dotnet dev-certs https --trust
+dotnet dev-certs https -ep $env:USERPROFILE\.aspnet\https\TeaApi.pfx -p password
+dotnet dev-certs https --trust
+
+# OpenSSL certificates
+openssl req -config https.config -new -out csr.pem
+openssl x509 -req -in csr.pem -signkey key.pem -out https.crt -days 365
